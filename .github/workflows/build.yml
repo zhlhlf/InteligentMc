@@ -1,0 +1,35 @@
+name: Build and Release APK
+
+on:
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Grant execute permission for gradlew
+      run: |
+        chmod +x gradlew
+        ./gradlew
+        
+    - name: Build APK
+      run: ./gradlew assembleRelease
+      
+    - name: Find APK
+      id: find_apk
+      run: |
+        APK_PATH=$(find app/build/outputs/apk -name '*.apk' | head -n 1)
+        echo "APK_PATH=$APK_PATH" >> $GITHUB_OUTPUT
+        echo "Found APK at: $APK_PATH"
+        
+    - name: Create Release and Upload APK
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ steps.find_apk.outputs.APK_PATH }}
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
