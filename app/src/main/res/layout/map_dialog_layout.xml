@@ -105,11 +105,13 @@
             android:id="@+id/to_navigation"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:background="@drawable/update"
             android:text="导航"
             android:layout_height="wrap_content"/>
         <Button
             android:layout_width="0dp"
             android:id="@+id/close_dialog"
+            android:background="@drawable/update"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:text="取消"
