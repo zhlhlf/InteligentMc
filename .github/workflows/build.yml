@@ -29,6 +29,8 @@ jobs:
     - name: Create Release and Upload APK
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: "build-${{ github.run_number }}"
+        name: "Release Build #${{ github.run_number }}"
         files: ${{ steps.find_apk.outputs.APK_PATH }}
         generate_release_notes: true
       env:
