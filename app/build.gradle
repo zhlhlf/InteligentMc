@@ -5,12 +5,20 @@ android {
     namespace 'com.example.myapplication'
     compileSdk 33
     useLibrary 'org.apache.http.legacy'
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.jks") // keystore 路径
+            storePassword "123123"
+            keyAlias "my-alias"
+            keyPassword "123123"
+        }
+    }
     defaultConfig {
         applicationId "com.example.myapplication"
         minSdk 29
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         sourceSets {
             main {
@@ -27,6 +35,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
